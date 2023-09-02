@@ -1,0 +1,4 @@
+module-info.class
+com\mycompany\foursquare\SecondaryController.class
+com\mycompany\foursquare\App.class
+com\mycompany\foursquare\PrimaryController.class
