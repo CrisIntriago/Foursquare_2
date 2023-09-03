@@ -317,6 +317,8 @@ INSERT INTO Resena (descripcion, id_Sitio, id_Usuario) VALUES
 ('La mejor atención gourmet y el sushi es espectacular',4,1),
 ('Los postres en este lugar son deliciosos, pero le falta mejorar atención al cliente',2,2),
 ('Es un lugar inmenso, deberían aprovechar mejor el espacio...',1,3),
+('Está bonito',1,2),
+('No me gustó la atención',1,5),
 ('Muy buena vista al río, pero los restaurantes son muy caros :)',3,4);
 
 INSERT INTO Foto(ruta,id_Resena) VALUES

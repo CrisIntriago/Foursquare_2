@@ -3,8 +3,8 @@ package com.mycompany.foursquare;
 import java.util.LinkedList;
 import java.util.List;
 import static com.mycompany.foursquare.ConexionMySQL.getConector;
+import static com.mycompany.foursquare.App.conexion;
 import java.sql.Statement;
-import java.sql.Connection;
 import java.sql.ResultSet;
 
 public class Resena {
@@ -56,15 +56,14 @@ public class Resena {
         this.id_Usuario = id_Usuario;
     }
 
-    public List<Resena> getResenas(int id_Sitio) {
+    public static List<Resena> getResenas(int id_Sitio) {
         List<Resena> resenas = new LinkedList<>();
-        Connection conexion = getConector("localhost", "3306", "foursquare", "root", "root");
         Statement st = null;
         ResultSet rs = null;
         if (conexion != null) {
             try {
                 st = conexion.createStatement();
-                rs = st.executeQuery("SELECT * FROM Resena WHERE id_Sitio = " + id_Sitio);
+                rs = st.executeQuery("SELECT * FROM Resena WHERE id_Sitio = " + id_Sitio + " ORDER BY id_Resena DESC");
                 while (rs.next()) {
                     int id_Resena = rs.getInt("id_Resena");
                     String descripcion = rs.getString("descripcion");
@@ -78,7 +77,6 @@ public class Resena {
                 try {
                     rs.close();
                     st.close();
-                    conexion.close();
                 } catch (Exception e) {
                 }
             }
@@ -86,8 +84,7 @@ public class Resena {
         return resenas;
     }
 
-    public void addResena(String descripcion, int id_Sitio, int id_Usuario) {
-        Connection conexion = getConector("localhost", "3306", "foursquare", "root", "root");
+    public static void addResena(String descripcion, int id_Sitio, int id_Usuario) {
         Statement st = null;
         if (conexion != null) {
             try {
@@ -99,15 +96,13 @@ public class Resena {
             } finally {
                 try {
                     st.close();
-                    conexion.close();
                 } catch (Exception e) {
                 }
             }
         }
     }
 
-    public void deleteResena(int id_Resena) {
-        Connection conexion = getConector("localhost", "3306", "foursquare", "root", "root");
+    public static void deleteResena(int id_Resena) {
         Statement st = null;
         if (conexion != null) {
             try {
@@ -118,20 +113,18 @@ public class Resena {
             } finally {
                 try {
                     st.close();
-                    conexion.close();
                 } catch (Exception e) {
                 }
             }
         }
     }
 
-    public void updateResena(int id_Resena, String descripcion) {
-        Connection conexion = getConector("localhost", "3306", "foursquare", "root", "root");
+    public static void updateResena(int id_Resena, String descripcion) {
         Statement st = null;
         if (conexion != null) {
             try {
                 st = conexion.createStatement();
-                st.executeUpdate("UPDATE FROM Resena " +
+                st.executeUpdate("UPDATE Resena " +
                         "SET descripcion = '" + descripcion + "' " +
                         "WHERE id_Resena = " + id_Resena);
             } catch (Exception e) {
@@ -139,7 +132,6 @@ public class Resena {
             } finally {
                 try {
                     st.close();
-                    conexion.close();
                 } catch (Exception e) {
                 }
             }
