@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="511.0" prefWidth="1030.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.foursquare.controladores.ResenaControl">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="726.0" prefWidth="1030.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.foursquare.controladores.ResenaControl">
    <center>
       <ScrollPane fitToWidth="true" hbarPolicy="NEVER" hvalue="1.0" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
          <content>
@@ -44,16 +44,12 @@
                            <children>
                               <VBox maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Label text="Comentarios">
-                                       <font>
-                                          <Font name="System Bold" size="18.0" />
-                                       </font>
-                                    </Label>
                                     <Label fx:id="nombreUsuario" text="Nombre de usuario">
                                        <graphic>
                                           <ImageView fx:id="perfilUsuario" fitHeight="47.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true" />
                                        </graphic>
                                     </Label>
+                                    <Label fx:id="lblEstado" text="ESTADO:" />
                                     <TextArea fx:id="textoResena" maxHeight="1.7976931348623157E308" minHeight="-Infinity" promptText="Escribe tu opinión aquí..." wrapText="true" VBox.vgrow="ALWAYS" />
                                     <ButtonBar prefHeight="40.0" prefWidth="200.0">
                                       <buttons>

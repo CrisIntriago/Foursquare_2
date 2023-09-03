@@ -87,12 +87,15 @@ public class ResenaControl implements Initializable {
 
     @FXML
     private LinkedList<Lugar> lugares = Lugar.getLugares();
+    
+    @FXML
+    private Label lblEstado;
 
     // REEMPLAZAR CON EL USUARIO QUE USAMOS POR DEFECTO
     private int CURRENT_USER = 1;
 
     // REEMPLAZAR CON EL LUGAR QUE SE ELIGE EN LA VENTANA ANTERIOR
-    private int CURRENT_PLACE = 1;
+    private String nombrePrimerLugar = "Noe Sushi Bar";
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -103,15 +106,14 @@ public class ResenaControl implements Initializable {
         // Image(getClass().getResourceAsStream("imagenes/perfil.png")));
         // imagenSitio.setImage(new
         // Image(getClass().getResourceAsStream("imagenes/edificio.png")));
-        nombreUsuario.setText(Usuario.getUsuario(CURRENT_USER).getNombre() + " " + Usuario.getUsuario(1).getApellido());
-
-        cargarResenas(CURRENT_PLACE);
         TextFields.bindAutoCompletion(busquedaTexto, lugares);
+        nombreUsuario.setText(Usuario.getUsuario(CURRENT_USER).getNombre() + " " + Usuario.getUsuario(1).getApellido());
+        hacerBusqueda(nombrePrimerLugar);
 
     }
 
     public void cargarResenas(int id_Sitio) {
-        
+
         Resena.getResenas(id_Sitio).forEach(resena -> {
             contenedorResenas.getChildren().clear();
             Usuario u = Usuario.getUsuario(resena.getId_Usuario());
@@ -177,13 +179,21 @@ public class ResenaControl implements Initializable {
     @FXML
     void hacerBusqueda(ActionEvent event) {
         String busqueda = busquedaTexto.getText();
-        Lugar lugar = existeLugar(busqueda);
+        hacerBusqueda(busqueda);
+    }
+    
+    public void hacerBusqueda(String texto){
+        Lugar lugar = existeLugar(texto);
         if (lugar != null) {
             System.out.println("Existe el lugar");
             cargarResenas(lugar.getId_Sitio());
+            nombreSitio.setText(lugar.getNombre());
+            lblEstado.setText(lugar.getDisponibilidad());
+
+        } else {
+            System.out.println("No existe ese lugar");
         }
-        System.out.println("No existe ese lugar");
-    }
+    };
 
     @FXML
     void editarLugar(MouseEvent event) {
