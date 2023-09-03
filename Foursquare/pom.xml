@@ -10,24 +10,34 @@
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
     <dependencies>
+        
+        
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
             <version>20</version>
         </dependency>
+        
+        
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
             <version>20</version>
         </dependency>
         
-        <!-- https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->
+        
+        <dependency>
+            <groupId>org.controlsfx</groupId>
+            <artifactId>controlsfx</artifactId>
+            <version>11.1.2</version>
+        </dependency>
+        
         <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
             <version>8.1.0</version>
         </dependency>
-
+        
     </dependencies>
     <build>
         <plugins>
@@ -86,6 +96,20 @@
                     </execution>
                 </executions>
             </plugin>
+            
+            <plugin>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-maven-plugin</artifactId>
+            <version>0.0.4</version>
+            <configuration>
+                <mainClass>com.mycompany.foursquare.App</mainClass>
+                 <options>
+                    <option>--add-exports</option>
+                    <option>javafx.base/com.sun.javafx.event=org.controlsfx.controls</option>
+                 </options>
+            </configuration>
+        </plugin>
+        
         </plugins>
     </build>
     <name>Foursquare 2</name>

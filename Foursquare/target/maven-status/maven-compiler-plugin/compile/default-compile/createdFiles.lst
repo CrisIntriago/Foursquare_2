@@ -1,0 +1,9 @@
+com\mycompany\foursquare\controladores\ResenaControl.class
+com\mycompany\foursquare\Lugar.class
+com\mycompany\foursquare\SecondaryController.class
+com\mycompany\foursquare\ConexionMySQL.class
+com\mycompany\foursquare\App.class
+module-info.class
+com\mycompany\foursquare\Usuario.class
+com\mycompany\foursquare\Resena.class
+com\mycompany\foursquare\PrimaryController.class

@@ -9,8 +9,10 @@ import java.net.URL;
 
 import java.util.ResourceBundle;
 import com.mycompany.foursquare.App;
+import com.mycompany.foursquare.Lugar;
 import com.mycompany.foursquare.Resena;
 import com.mycompany.foursquare.Usuario;
+import java.util.LinkedList;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -25,11 +27,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+
+import org.controlsfx.control.textfield.AutoCompletionBinding;
+import org.controlsfx.control.textfield.TextFields;
 
 public class ResenaControl implements Initializable {
 
@@ -81,6 +85,9 @@ public class ResenaControl implements Initializable {
     @FXML
     private Label editarUbicacionLbl;
 
+    @FXML
+    private LinkedList<Lugar> lugares = Lugar.getLugares();
+
     // REEMPLAZAR CON EL USUARIO QUE USAMOS POR DEFECTO
     private int CURRENT_USER = 1;
 
@@ -97,7 +104,16 @@ public class ResenaControl implements Initializable {
         // imagenSitio.setImage(new
         // Image(getClass().getResourceAsStream("imagenes/edificio.png")));
         nombreUsuario.setText(Usuario.getUsuario(CURRENT_USER).getNombre() + " " + Usuario.getUsuario(1).getApellido());
-        Resena.getResenas(1).forEach(resena -> {
+
+        cargarResenas(CURRENT_PLACE);
+        TextFields.bindAutoCompletion(busquedaTexto, lugares);
+
+    }
+
+    public void cargarResenas(int id_Sitio) {
+        
+        Resena.getResenas(id_Sitio).forEach(resena -> {
+            contenedorResenas.getChildren().clear();
             Usuario u = Usuario.getUsuario(resena.getId_Usuario());
             Label usuario = new Label(u.getNombre() + " " + u.getApellido());
             Text descripcion = new Text(resena.getDescripcion());
@@ -142,7 +158,6 @@ public class ResenaControl implements Initializable {
             }
             contenedorResenas.getChildren().add(comentario);
         });
-
     }
 
     @FXML
@@ -161,7 +176,13 @@ public class ResenaControl implements Initializable {
 
     @FXML
     void hacerBusqueda(ActionEvent event) {
-
+        String busqueda = busquedaTexto.getText();
+        Lugar lugar = existeLugar(busqueda);
+        if (lugar != null) {
+            System.out.println("Existe el lugar");
+            cargarResenas(lugar.getId_Sitio());
+        }
+        System.out.println("No existe ese lugar");
     }
 
     @FXML
@@ -219,6 +240,15 @@ public class ResenaControl implements Initializable {
 
     private static String showNewDialog(String titulo, String mensaje) {
         return showNewDialog(titulo, mensaje, "");
+    }
+
+    public Lugar existeLugar(String nombreLugar) {
+        for (Lugar lugar : lugares) {
+            if (lugar.getNombre().equals(nombreLugar)) {
+                return lugar;
+            }
+        }
+        return null;
     }
 
 }

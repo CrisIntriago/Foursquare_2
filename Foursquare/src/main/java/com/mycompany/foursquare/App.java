@@ -22,7 +22,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"));
+        scene = new Scene(loadFXML("resena"));
         stage.setScene(scene);
         stage.setTitle("Foursquare");
         stage.setResizable(false);
@@ -41,7 +41,7 @@ public class App extends Application {
 
     @Override
     public void init() throws Exception {
-        conexion = getConector("localhost", "3306", "foursquare", "root", "preciosa2002");
+        conexion = getConector("localhost", "3306", "foursquare", "root", "root");
     }
 
     @Override
