@@ -71,11 +71,11 @@
                                           <Label fx:id="editarUbicacionLbl" onMouseClicked="#editarUbicacion" text="Editar" textFill="#00b7ff" underline="true" />
                                        </children>
                                     </HBox>
-                                    <Label fx:id="postalLugar" text="Código postal" />
-                                    <Label fx:id="calleLugar" text="Calle secundaria" />
-                                    <Label fx:id="parroquiaLugar" text="Parroquia" />
-                                    <Label fx:id="ciudadLugar" text="Ciudad" />
-                                    <Label fx:id="paisLugar" text="País" />
+                                    <Label fx:id="lciudad" text="Ciudad" />
+                                    <Label fx:id="lpais" text="País" />
+                                    <Label fx:id="lcalle" text="Calle" />
+                                    <Label fx:id="lparroquia" text="Parroquia" />
+                                    <Label fx:id="lcodigopostal" text="Código postal" />
                                  </children>
                                  <HBox.margin>
                                     <Insets left="20.0" />

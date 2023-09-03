@@ -33,7 +33,6 @@ public class Lugar {
         this.disponibilidad = disponibilidad;
         this.id_Ubicacion = id_Ubicacion;
     }
-    
 
     public static LinkedList<Lugar> getLugares() {
         LinkedList<Lugar> lugares = new LinkedList<>();
@@ -47,15 +46,15 @@ public class Lugar {
 
                 while (rs.next()) {
 
-                    int id_Sitio= rs.getInt("id_Sitio");
-                    String nombre=rs.getString("nombre");
-                    int tipo=rs.getInt("id_Tipo");
-                    double precio_minimo=rs.getDouble("precio_min");
-                    double precio_maximo=rs.getDouble("precio_max");
-                    String disponibilidad=rs.getString("disponibilidad");
-                    int id_Ubicacion=rs.getInt("id_Ubicacion");
+                    int id_Sitio = rs.getInt("id_Sitio");
+                    String nombre = rs.getString("nombre");
+                    int tipo = rs.getInt("id_Tipo");
+                    double precio_minimo = rs.getDouble("precio_min");
+                    double precio_maximo = rs.getDouble("precio_max");
+                    String disponibilidad = rs.getString("disponibilidad");
+                    int id_Ubicacion = rs.getInt("id_Ubicacion");
 
-                    lugares.add(new Lugar(id_Sitio,nombre,tipo,precio_minimo,precio_maximo,disponibilidad,id_Ubicacion));
+                    lugares.add(new Lugar(id_Sitio, nombre, tipo, precio_minimo, precio_maximo, disponibilidad, id_Ubicacion));
                 }
 
             } catch (Exception e) {
@@ -70,9 +69,9 @@ public class Lugar {
         }
         return lugares;
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return this.nombre;
     }
 
@@ -139,6 +138,46 @@ public class Lugar {
     public void setId_Ubicacion(int id_Ubicacion) {
         this.id_Ubicacion = id_Ubicacion;
     }
-    
-    
+
+    public String[] obtenerDetallesLugar() {
+        String buscar = String.valueOf(this.id_Sitio);
+
+        String[] retornable = new String[5];
+
+        Statement st = null;
+        ResultSet rs = null;
+        if (conexion != null) {
+            try {
+
+                st = conexion.createStatement();
+                rs = st.executeQuery(
+                        "SELECT pais_nom,ciudad_nom,parroquia_nom,codigoPostal,calleTransversal\n"
+                        + "FROM Ubicacion u\n"
+                        + "JOIN (Parroquia p, Ciudad c, Pais pa)\n"
+                        + "ON (p.id_Parroquia=u.id_Parroquia and pa.id_Pais=c.id_Pais and c.id_Ciudad=p.id_Ciudad and c.id_Pais=pa.id_Pais)\n"
+                        + "where id_Ubicacion=" + this.id_Sitio + ";");
+                
+                rs.next();
+                
+                retornable[0]=rs.getString("pais_nom");
+                retornable[1]=rs.getString("ciudad_nom");
+                retornable[2]=rs.getString("parroquia_nom");
+                retornable[3]=rs.getString("codigoPostal");
+                retornable[4]=rs.getString("calleTransversal");
+
+            } catch (Exception e) {
+                System.out.println("Error: " + e);
+            } finally {
+                try {
+                    rs.close();
+                    st.close();
+                } catch (Exception e) {
+                }
+            }
+        }
+        
+        return retornable;
+        
+
+    }
 }

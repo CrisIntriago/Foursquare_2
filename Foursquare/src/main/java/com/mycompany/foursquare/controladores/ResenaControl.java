@@ -37,14 +37,20 @@ import org.controlsfx.control.textfield.TextFields;
 
 public class ResenaControl implements Initializable {
 
+    //INFORMACION
+    @FXML
+    private Label lciudad;
+    @FXML
+    private Label lpais;
+    @FXML
+    private Label lcalle;
+    @FXML
+    private Label lparroquia;
+    @FXML
+    private Label lcodigopostal;
+
     @FXML
     private TextField busquedaTexto;
-
-    @FXML
-    private Label calleLugar;
-
-    @FXML
-    private Label ciudadLugar;
 
     @FXML
     private VBox contenedorResenas;
@@ -65,16 +71,7 @@ public class ResenaControl implements Initializable {
     private Label nombreUsuario;
 
     @FXML
-    private Label paisLugar;
-
-    @FXML
-    private Label parroquiaLugar;
-
-    @FXML
     private ImageView perfilUsuario;
-
-    @FXML
-    private Label postalLugar;
 
     @FXML
     private TextArea textoResena;
@@ -87,7 +84,7 @@ public class ResenaControl implements Initializable {
 
     @FXML
     private LinkedList<Lugar> lugares = Lugar.getLugares();
-    
+
     @FXML
     private Label lblEstado;
 
@@ -181,8 +178,8 @@ public class ResenaControl implements Initializable {
         String busqueda = busquedaTexto.getText();
         hacerBusqueda(busqueda);
     }
-    
-    public void hacerBusqueda(String texto){
+
+    public void hacerBusqueda(String texto) {
         Lugar lugar = existeLugar(texto);
         if (lugar != null) {
             System.out.println("Existe el lugar");
@@ -190,10 +187,22 @@ public class ResenaControl implements Initializable {
             nombreSitio.setText(lugar.getNombre());
             lblEstado.setText(lugar.getDisponibilidad());
 
+            String[] informacion = lugar.obtenerDetallesLugar();
+            
+            //Que pereza hacer que se entienda jajaj 
+            
+            lpais.setText(informacion[0]);
+            lciudad.setText(informacion[1]);
+            lparroquia.setText(informacion[2]);
+            lcodigopostal.setText(informacion[3]);
+            lcalle.setText(informacion[4]);
+
         } else {
             System.out.println("No existe ese lugar");
         }
-    };
+    }
+
+    ;
 
     @FXML
     void editarLugar(MouseEvent event) {
