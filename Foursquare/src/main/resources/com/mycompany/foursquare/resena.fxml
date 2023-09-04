@@ -68,7 +68,6 @@
                                                 <Font name="System Bold" size="18.0" />
                                              </font>
                                           </Label>
-                                          <Label fx:id="editarUbicacionLbl" onMouseClicked="#editarUbicacion" text="Editar" textFill="#00b7ff" underline="true" />
                                        </children>
                                     </HBox>
                                     <Label fx:id="lciudad" text="Ciudad" />
