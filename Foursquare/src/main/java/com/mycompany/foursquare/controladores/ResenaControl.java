@@ -79,8 +79,7 @@ public class ResenaControl implements Initializable {
     @FXML
     private Label editarLugarLbl;
 
-    @FXML
-    private Label editarUbicacionLbl;
+
 
     @FXML
     private LinkedList<Lugar> lugares = Lugar.getLugares();
