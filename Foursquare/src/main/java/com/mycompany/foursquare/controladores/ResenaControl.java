@@ -13,6 +13,7 @@ import com.mycompany.foursquare.Lugar;
 import com.mycompany.foursquare.Resena;
 import com.mycompany.foursquare.Usuario;
 import java.util.LinkedList;
+import java.util.Random;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -91,7 +92,10 @@ public class ResenaControl implements Initializable {
     private int CURRENT_USER = 1;
 
     // REEMPLAZAR CON EL LUGAR QUE SE ELIGE EN LA VENTANA ANTERIOR
-    private String nombrePrimerLugar = "Noe Sushi Bar";
+    
+    private Random rd= new Random();
+    
+    private String nombrePrimerLugar = lugares.get(rd.nextInt(0, lugares.size())).getNombre();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -207,24 +211,20 @@ public class ResenaControl implements Initializable {
     void editarLugar(MouseEvent event) {
         final String titulo = "Editar lugar (Dejan en blanco para no editar)";
         String nombre = showNewDialog(titulo, "Nuevo Nombre");
-        String descripcion = showNewDialog(titulo, "Nueva Descripción");
-        // Implementar la edición del sitio
+        Lugar lugar= existeLugar(nombreSitio.getText());
+        lugar.setNombre(nombre);
+        Lugar.editarLugar(lugar.getId_Sitio(),nombre);
+        hacerBusqueda(nombre);
     }
 
-    @FXML
-    void editarUbicacion(MouseEvent event) {
-        final String titulo = "Editar ubicación (Dejan en blanco para no editar)";
-        String postal = showNewDialog(titulo, "Nuevo Código Postal");
-        String calle = showNewDialog(titulo, "Calle Secundaria");
-        String parroquia = showNewDialog(titulo, "Parroquia");
-        String ciudad = showNewDialog(titulo, "Ciudad");
-        String pais = showNewDialog(titulo, "País");
-        // Implementar la edición del sitio
-    }
+
 
     @FXML
     void eliminarLugar(MouseEvent event) {
-        // Implementar la eliminación del sitio
+        Lugar lugar= existeLugar(nombreSitio.getText());
+        
+        Lugar.eliminarLugar(lugar.getId_Sitio());
+        hacerBusqueda(lugares.get(rd.nextInt(0, lugares.size())).getNombre());
     }
 
     private static String showNewDialog(String titulo, String mensaje, String viejaResena) {

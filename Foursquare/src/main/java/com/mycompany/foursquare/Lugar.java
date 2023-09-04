@@ -5,6 +5,7 @@
 package com.mycompany.foursquare;
 
 import static com.mycompany.foursquare.App.conexion;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.LinkedList;
@@ -156,14 +157,14 @@ public class Lugar {
                         + "JOIN (Parroquia p, Ciudad c, Pais pa)\n"
                         + "ON (p.id_Parroquia=u.id_Parroquia and pa.id_Pais=c.id_Pais and c.id_Ciudad=p.id_Ciudad and c.id_Pais=pa.id_Pais)\n"
                         + "where id_Ubicacion=" + this.id_Sitio + ";");
-                
+
                 rs.next();
-                
-                retornable[0]=rs.getString("pais_nom");
-                retornable[1]=rs.getString("ciudad_nom");
-                retornable[2]=rs.getString("parroquia_nom");
-                retornable[3]=rs.getString("codigoPostal");
-                retornable[4]=rs.getString("calleTransversal");
+
+                retornable[0] = rs.getString("pais_nom");
+                retornable[1] = rs.getString("ciudad_nom");
+                retornable[2] = rs.getString("parroquia_nom");
+                retornable[3] = rs.getString("codigoPostal");
+                retornable[4] = rs.getString("calleTransversal");
 
             } catch (Exception e) {
                 System.out.println("Error: " + e);
@@ -175,9 +176,72 @@ public class Lugar {
                 }
             }
         }
-        
+
         return retornable;
-        
 
     }
+
+    public static void editarLugar(int id_Sitio, String nuevoNombre) {
+        String sql = "UPDATE Sitio SET nombre = ? WHERE id_Sitio = ?";
+
+        Statement st = null;
+        ResultSet rs = null;
+        System.out.println("whattt");
+        if (conexion != null) {
+            try {
+                PreparedStatement preparedStatement = conexion.prepareStatement(sql);
+                preparedStatement.setString(1, nuevoNombre);
+                preparedStatement.setString(2, String.valueOf(id_Sitio));
+
+                int rowsUpdated = preparedStatement.executeUpdate();
+
+                if (rowsUpdated > 0) {
+                    System.out.println("Se modifico esa fila");
+                } else {
+                    System.out.println("No se modifico nada");
+                }
+     
+            } catch (Exception e) {
+                System.out.println("Error: " + e);
+            } finally {
+                try {
+                    rs.close();
+                    st.close();
+                } catch (Exception e) {
+                }
+            }
+        }
+    }
+;
+    
+    public static void eliminarLugar(int id_Sitio) {
+        String sql = "Delete FROM Sitio WHERE id_Sitio = ?";
+
+        Statement st = null;
+        ResultSet rs = null;
+        System.out.println("whattt");
+        if (conexion != null) {
+            try {
+                PreparedStatement preparedStatement = conexion.prepareStatement(sql);
+                preparedStatement.setString(1, String.valueOf(id_Sitio));
+                int rowsUpdated = preparedStatement.executeUpdate();
+
+                if (rowsUpdated > 0) {
+                    System.out.println("Se elimino esa fila");
+                } else {
+                    System.out.println("No se modifico nada");
+                }
+     
+            } catch (Exception e) {
+                System.out.println("Error: " + e);
+            } finally {
+                try {
+                    rs.close();
+                    st.close();
+                } catch (Exception e) {
+                }
+            }
+        }
+    }
+;
 }
