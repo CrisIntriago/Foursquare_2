@@ -1,2 +1,4 @@
 # Foursquare
-Modelo de interfaz gráfica para el proyecto de base de datos Foursquare
+#ERR Diagram 
+![ERR-Diagram](image_url)
+
